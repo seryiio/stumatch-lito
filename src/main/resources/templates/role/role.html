@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout/layout :: frag-head">
+<meta charset="ISO-8859-1">
+<title>Asignar Rol</title>
+<body>
+<body id="page-top">
+	<header th:replace="/layout/layout :: frag-header"></header>
+
+	<main>
+
+		<section class="section">
+			<nav class="mt-3 mx-3" aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="#">Home</a></li>
+					<li class="breadcrumb-item active" aria-current="page"><a
+						th:href="@{/students}">Estudiantes</a></li>
+					<li class="breadcrumb-item active" aria-current="page">Crear</li>
+				</ol>
+			</nav>
+			<div class="card text-center">
+				<div class="card-header">Estudiante</div>
+				<div class="card-body" style="text-align: left;">
+					<form th:action="@{/authoritys/savenew}" th:object="${authority}"
+						method="post" class="row g-3 needs-validation" novalidate>
+						<div class="col-md-2">
+							<label for="user" class="form-label">ID del Usuario</label> <input
+								type="text" class="form-control" th:field="*{user}" required>
+							<div class="valid-feedback">Looks good!</div>
+						</div>
+
+						<div class="col-md-2">
+							<label for="authority" class="form-label">Rol 1</label> <input
+								type="text" class="form-control" th:field="*{authority}" required>
+							<div class="valid-feedback">Looks good!</div>
+						</div>
+						<div class="col-12" style="text-align: center;">
+							<button class="btn btn-success" type="submit">
+								<i class="fas fa-plus"></i> Crear Estudiante
+							</button>
+						</div>
+
+					</form>
+				</div>
+
+
+			</div>
+
+		</section>
+
+	</main>
+	<footer th:replace="/layout/layout :: frag-footer"></footer>
+</body>
+</html>

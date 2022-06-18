@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: frag-head">
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<header th:replace="layout/layout :: frag-header"></header>
+	<section>
+		<div class="card">
+			<div class="card-body row">
+				<div class="ms-2 me-auto col mt-2 mb-2">
+					<div class="fw-bold">Nombres y Apellidos:</div>
+					<p th:text="${student.firstName + ' ' + student.lastName}"></p>
+					<div class="fw-bold">Ciclo:</div>
+					<p th:text="${student.cycle}"></p>
+				</div>
+				<div class="ms-2 me-auto col mt-2 mb-2">
+					<div class="fw-bold">Carrera:</div>
+					<p th:text="${student.career.name}"></p>
+					<div class="fw-bold">Creditos Maximos:</div>
+					<p th:text="${student.creditAmount}"></p>
+				</div>
+				<div class="ms-2 me-auto col mt-2 mb-2">
+					<div class="fw-bold">Tipo de Matricula:</div>
+					PREGRADO
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="container">
+		<div class="row">
+			<div class="col card text-center ms-5 me-5 mb-3 mt-5">
+				<div class="card-header text-start" style="background-color: white">Lista
+					de Cursos</div>
+				<div class="card-body">
+
+					<table class="table table-bordered">
+						<thead style="background-color: #FFBFBF">
+							<tr>
+								<th scope="col">Ciclo</th>
+								<th scope="col">Creditos</th>
+								<th scope="col">Curso</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr th:each="course : ${courses}" th:if="${course.career.name == student.career.name && course.numberCycle == student.cycle}">
+								<td th:text="${course.numberCycle}"></td>
+								<td th:text="${course.numberCredits}"></td>
+								<td><a class="btn"
+									th:href="@{'/enrollments/' + ${course.id} + '/select_section'}" role="button"><i
+										th:text="${course.name}"></i></a></td>
+							</tr>
+						</tbody>
+					</table>
+
+				</div>
+			</div>
+			<!-- 
+			<div class="modal fade" id="exampleModal" tabindex="-1"
+				aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-scrollable">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">Elige una
+								Seccion</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal"
+								aria-label="Close"></button>
+						</div>
+						<div class="modal-body w-5">
+							<table class="table table-striped text-center">
+								<thead>
+									<tr>
+										<th scope="col"></th>
+										<th scope="col" colspan="2">Profesor</th>
+										<th scope="col">Seccion</th>
+										<th scope="col" colspan="3">Hora</th>
+										<th scope="col">Vacantes</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="section:${sections}"
+										th:if="section.course.name == 'IdLetra'">
+										<td><input class="form-check-input" type="radio"
+											name="flexRadioDefault" id="flexRadioDefault1">
+										<td th:text=${section.teacher.firstName}></td>
+										<td th:text=${section.teacher.lastName}></td>
+										<td th:text=${section.id}></td>
+										<td th:text=${section.startTime}></td>
+										<td>-</td>
+										<td th:text=${section.endTime}></td>
+										<td th:text=${section.vacancies}></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-bs-dismiss="modal">Cancelar</button>
+							<button type="button" class="btn btn-danger">Guardar
+								Cambios</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			 -->
+			<div class="col card text-center ms-5 me-5 mb-3 mt-5">
+				<div class="card-header text-start" style="background-color: white">Cursos
+					Matriculados</div>
+				<div class="card-body">
+
+					<table class="table table-bordered">
+						<thead style="background-color: #FFBFBF">
+							<tr>
+								<th scope="col">Curso</th>
+								<th scope="col">Creditos</th>
+								<th scope="col">Seccion</th>
+								<th scope="col">Hora</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr th:each="enrollment : ${enrollments}" th:if="${student.id == enrollment.student.id}">
+								<th scope="row" th:text="${enrollment.section.course.name}"></th>
+								<td th:text="${enrollment.section.course.numberCredits}"></td>
+								<td th:text="${enrollment.section.id}"></td>
+								<td th:text="${enrollment.section.startTime + ' - ' + enrollment.section.endTime}"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="card-footer text-muted d-flex justify-content-end"
+					style="background-color: white">
+					<a class="btn btn-danger" th:href="@{/students/new}" role="button"><i
+						class="fa-solid fa-floppy-disk"></i> Grabar </a>
+				</div>
+				<div class="text-muted d-flex justify-content-center mt-3 mb-3">
+					<a class="btn btn-danger" th:href="@{/students/new}" role="button"><i
+						class="fa-solid fa-calendar"></i> Ver Horario </a>
+				</div>
+			</div>
+
+
+		</div>
+	</section>
+	<footer th:replace="layout/layout :: frag-footer"></footer>
+</body>
+</html>
