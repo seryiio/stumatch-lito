@@ -12,12 +12,12 @@ import pe.edu.upc.stumatch.model.repository.UserRepository;
 @Service
 public class InitUser implements CommandLineRunner {
 
-	@Autowired
-	private UserRepository userRepository;
+	//@Autowired
+	//private UserRepository userRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
-		BCryptPasswordEncoder bcpe = new BCryptPasswordEncoder();
+		//BCryptPasswordEncoder bcpe = new BCryptPasswordEncoder();
 		// ROLE_XXXXX
 		// ACCESS_YYYYY
 
