@@ -1,12 +1,12 @@
 server:
-  port: 8182
+  port: 8170
 
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/stumatchpruebas
     username: postgres
-    password: 1234
+    password: 0Tf#5Bgs
   jpa:
     database: postgresql
     hibernate:

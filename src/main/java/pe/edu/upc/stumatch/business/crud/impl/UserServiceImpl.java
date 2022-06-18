@@ -26,4 +26,21 @@ public class UserServiceImpl implements UserService {
 	public Optional<User> findByUsername(String username){
 		return this.uR.findByUsername(username);
 	}
+	
+	@Override
+	public Integer insert(User user) {
+		int rpta = uR.buscarUsername(user.getUsername());
+		if (rpta == 0) {
+			uR.save(user);
+		}
+		return rpta;
+	}
+
+	@Override
+	public List<User> list() {
+		// TODO Auto-generated method stub
+		return uR.findAll();
+	}
+	
+	
 }
