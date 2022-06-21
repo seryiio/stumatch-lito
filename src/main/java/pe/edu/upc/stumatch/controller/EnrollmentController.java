@@ -103,6 +103,7 @@ public class EnrollmentController {
 	@PostMapping("savenewSection")
 	public String saveSelectSection(Model model, @ModelAttribute("enrollment") Enrollment enrollment) {
 		try {
+			enrollment.setNumberCycle("2022-01");
 			Enrollment enrollmentSaved = enrollmentService.create(enrollment);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -140,6 +141,20 @@ public class EnrollmentController {
 			e.printStackTrace();
 		}
 		return "redirect:/enrollments";
+	}
+	
+	@GetMapping("/report")
+	public String listEnrollmentforCycle(Model model) {
+
+		try {
+			List<Enrollment> enrollments = enrollmentService.getAll();
+			model.addAttribute("enrollments", enrollments);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return "enrollments/report-enrollment";
 	}
 
 }

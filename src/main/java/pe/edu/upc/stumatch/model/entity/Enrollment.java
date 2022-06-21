@@ -28,18 +28,8 @@ public class Enrollment {
 	@Column(name = "type", length = 35)
 	private String type;
 	
-	@Max(02)
-	@Min(00)
-	@Column(name = "number_cycle", columnDefinition = "NUMERIC(2)")
-	private Integer numberCycle;
-	
-	@Column(name = "start_date")
-	@Temporal(TemporalType.DATE)
-	private Date startDate;
-	
-	@Column(name = "end_date")
-	@Temporal(TemporalType.DATE)
-	private Date endDate;
+	@Column(name = "number_cycle", nullable = false)
+	private String numberCycle;
 	
 	@ManyToOne
 	@JoinColumn(name = "student_id")
@@ -48,18 +38,6 @@ public class Enrollment {
 	@ManyToOne
 	@JoinColumn(name = "section_id")
 	private Section section;
-	
-	public Section getSection() {
-		return section;
-	}
-
-	public void setSection(Section section) {
-		this.section = section;
-	}
-
-	public void setNumberCycle(Integer numberCycle) {
-		this.numberCycle = numberCycle;
-	}
 
 	public Integer getId() {
 		return id;
@@ -77,28 +55,12 @@ public class Enrollment {
 		this.type = type;
 	}
 
-	public int getNumberCycle() {
+	public String getNumberCycle() {
 		return numberCycle;
 	}
 
-	public void setNumberCycle(int numberCycle) {
+	public void setNumberCycle(String numberCycle) {
 		this.numberCycle = numberCycle;
-	}
-
-	public Date getStartDate() {
-		return startDate;
-	}
-
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
-	}
-
-	public Date getEndDate() {
-		return endDate;
-	}
-
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
 	}
 
 	public Student getStudent() {
@@ -108,5 +70,15 @@ public class Enrollment {
 	public void setStudent(Student student) {
 		this.student = student;
 	}
+
+	public Section getSection() {
+		return section;
+	}
+
+	public void setSection(Section section) {
+		this.section = section;
+	}
+	
+	
 
 }
