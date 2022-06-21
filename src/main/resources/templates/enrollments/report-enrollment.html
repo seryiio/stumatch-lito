@@ -6,6 +6,47 @@
 </head>
 <body>
 	<header th:replace="layout/layout :: frag-header"></header>
+		<section class ="section mt-3">
+		<div class="card text-center">
+		  <div class="card-header bold">
+		    Reporte de Alumnos matriculados en el ciclo <dt class="fs-2">2022 - 01</dt>
+		  </div>
+		  <div class="card-body">
+		    
+				<table class="table table-striped">
+				  <thead>
+				    <tr class="table-danger">
+				      <th scope="col">Codigo</th>
+				      <th scope="col">Nombres</th>
+				      <th scope="col">Apellidos</th>
+				      <th scope="col">Correo Universitario</th>
+				      <th scope="col">Correo Personal</th>
+				      <th scope="col">Telefono</th>
+				      <th scope="col">Ciclo</th>
+				      <th scope="col">Carrera</th>
+				      <th scope="col"></th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				    <tr th:each="enrollment : ${enrollments}" th:if="${enrollment.numberCycle == '2022-01'}">
+				      <th scope="row" th:text="${enrollment.student.id}"></th>
+				      <td th:text="${enrollment.student.firstName}"></td>
+				      <td th:text="${enrollment.student.lastName}"></td>
+				      <td th:text="${enrollment.student.emailUniversity}"></td>
+				      <td th:text="${enrollment.student.emailPersonal}"></td>
+				      <td th:text="${enrollment.student.phoneNumber}"></td>
+				      <td th:text="${enrollment.student.cycle}"></td>
+				      <td th:text="${enrollment.student.career.name}"></td>
+				    </tr>
+				  </tbody>
+				</table>
+						    
+		  </div>
+		  <div class="card-footer text-muted">
+		   <a class="btn btn-danger" th:href="@{/careers/new}" role="button"><i class="fa-solid fa-plus"></i> Agregar nueva Carrera</a>
+		  </div>
+		</div>
+	</section>
 	<footer th:replace="layout/layout :: frag-footer"></footer>
 </body>
 </html>
