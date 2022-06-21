@@ -30,7 +30,7 @@
 		style="background-color: #320000; color: white">
 		<nav class="navbar navbar-expand-lg">
 			<div class="container-fluid">
-				<a href="/"
+				<a href="/main"
 					class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
 					<img class="bi pe-none me-2" th:src="@{/img/Logo.png}"
 					width="100em" height="25em" alt="">
@@ -44,7 +44,7 @@
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0 mx-5">
 						<li class="nav-item"><a class="nav-link" style="color: white"
-							href="#"> Mi Perfil</a></li>
+							th:href="@{/students/profile}"> Mi Perfil</a></li>
 						<li class="nav-item"><a class="nav-link" style="color: white"
 							th:href="@{/enrollments}"> Matricula</a></li>
 						<li class="nav-item"><a class="nav-link" style="color: white"
@@ -61,7 +61,14 @@
 								<li><a class="dropdown-item" th:href="@{/students}">Estudiantes</a></li>
 							</ul>
 						</li>
-
+						<li class="nav-item dropdown"  sec:authorize="hasRole('ROLE_ADMINISTRATOR')"><a
+							class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+							role="button" data-bs-toggle="dropdown" aria-expanded="false"
+							style="color: white"> Reportes </a>
+							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<li><a class="dropdown-item" th:href="@{/careers}">Lista de Alumnos Matriculados</a></li>
+							</ul>
+						</li>
 
 					</ul>
 					<button type="button" class="btn"

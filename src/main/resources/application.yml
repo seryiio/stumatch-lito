@@ -6,7 +6,7 @@ spring:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/stumatchpruebas
     username: postgres
-    password: 0Tf#5Bgs
+    password: 1234
   jpa:
     database: postgresql
     hibernate:

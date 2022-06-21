@@ -5,16 +5,19 @@
 <title>StuMatch</title>
 <body>
 	<header th:replace="/layout/layout :: frag-header"></header>
-	<section class="container py-4">
-  	<div class="p-5 mb-4 bg-light rounded-3">
-      <div class="container-fluid py-5">
-        <h1 class="display-5 fw-bold"><i class="fas fa-chalkboard-teacher"></i> BIENVENIDO A STUMATCH</h1>
-        <p class="col-md-8 fs-4">Using a series of utilities, you can create this jumbotron, just like the one in previous versions of Bootstrap. Check out the examples below for how you can remix and restyle it to your liking.</p>
-        <button class="btn btn-primary btn-lg" type="button">Example button</button>
-      </div>
-    </div>
-  	
-  </section>
+	<section class="container py-4" sec:authorize="hasRole('ROLE_STUDENT')">
+		<div class="p-5 mb-4 bg-light rounded-3">
+			<div class="container-fluid py-5">
+				<h1 class="display-5 fw-bold">
+					<i class="fas fa-chalkboard-teacher"></i> BIENVENIDO A STUMATCH
+				</h1>
+				<p class="col-md-8 fs-4 mt-5 mb-5" th:text="${'Alumno: ' + student.firstName + ' ' + student.lastName}"></p>
+				<a class="btn btn-danger btn-lg" style="color: white"
+					th:href="@{/enrollments}"> Matriculate</a>
+			</div>
+		</div>
+
+	</section>
 	<footer th:replace="/layout/layout :: frag-footer"></footer>
 </body>
 </html>

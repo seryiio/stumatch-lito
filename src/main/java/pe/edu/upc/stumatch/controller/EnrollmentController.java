@@ -126,5 +126,20 @@ public class EnrollmentController {
 		}
 		return "redirect:/enrollments";
 	}
+	
+	@GetMapping("{id}/delete")
+	public String deleteStudent(Model model, @PathVariable("id") Integer id) {
+		try {
+			if(enrollmentService.existById(id)) {
+				enrollmentService.deleteById(id);
+			} else {
+				return "redirect:/enrollments";
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "redirect:/enrollments";
+	}
 
 }

@@ -17,11 +17,16 @@ import pe.edu.upc.stumatch.business.crud.CareerService;
 import pe.edu.upc.stumatch.business.crud.StudentService;
 import pe.edu.upc.stumatch.model.entity.Career;
 import pe.edu.upc.stumatch.model.entity.Student;
+import pe.edu.upc.stumatch.utils.UserAuthentication;
 
 @Controller
 @RequestMapping("/students")
 @SessionAttributes("{student}")
 public class StudentController {
+	
+	@Autowired
+	private UserAuthentication userAuthentication;
+	
 	@Autowired
 	private StudentService studentService;
 	
@@ -39,6 +44,16 @@ public class StudentController {
 			e.printStackTrace();
 		}
 		return "students/list-students";
+	}
+	
+	@GetMapping("profile")
+	public String profileStudent(Model model) {	
+		
+		if (userAuthentication.isAuthenticated()) {	// Enviar los datos del Segmento al html
+			userAuthentication.getSegment(model);
+		}
+				
+		return "students/profile-student";
 	}
 	
 	@GetMapping("new")
