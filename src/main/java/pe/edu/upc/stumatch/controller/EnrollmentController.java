@@ -108,17 +108,35 @@ public class EnrollmentController {
 	}
 
 	@PostMapping("savenewSection")
-	public String saveSelectSection(Model model, @ModelAttribute("enrollment") Enrollment enrollment,
-			@ModelAttribute("section") Section section, @ModelAttribute("course") Course course,
-			@ModelAttribute("student") Student student) {
-		try {
-			enrollment.setNumberCycle("2022-01");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return "redirect:/enrollments";
-	}
+    public String saveSelectSection(Model model, @ModelAttribute("enrollment") Enrollment enrollment,
+            @ModelAttribute("section") Section section, @ModelAttribute("course") Course course,
+            @ModelAttribute("student") Student student) {
+        try {
+            enrollment.setNumberCycle("2022-01");
+            int vacancies = enrollment.getSection().getVacancies();
+            int newvacancies = vacancies - 1;
+            section.setVacancies(newvacancies);
+            int creditCourse = enrollment.getSection().getCourse().getNumberCredits();
+            int creditAmount = enrollment.getStudent().getCreditAmount();
+            int newcreditAmount = creditAmount - creditCourse;
+            section.setVacancies(newvacancies);
+            student.setCreditAmount(newcreditAmount);
+            String idCourseinSection = section.getCourse().getId();
+            String idCourseinEnrollment = enrollment.getSection().getCourse().getId();
+            if (idCourseinEnrollment != null && enrollmentService.existById(1) && enrollment.getStudent().getId().equals(student)) {
+                enrollmentService.update(enrollment);
+            } else {
+                Enrollment enrollmentSaved = enrollmentService.create(enrollment);
+            }
+
+            Enrollment enrollmentSaved = enrollmentService.create(enrollment);
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return "redirect:/enrollments";
+    }
 
 	@PostMapping("{id}/update")
 	public String updateEnrollment(Model model, @ModelAttribute("enrollment") Enrollment enrollment,
