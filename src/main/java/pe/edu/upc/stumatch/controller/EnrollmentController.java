@@ -104,6 +104,7 @@ public class EnrollmentController {
 	public String saveSelectSection(Model model, @ModelAttribute("enrollment") Enrollment enrollment) {
 		try {
 			Enrollment enrollmentSaved = enrollmentService.create(enrollment);
+		
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -58,7 +58,7 @@ public class UserController {
 		}
 		//model.addAttribute("listaUsuarios", uService.list());
 
-		return "redirect:/authoritys/new";
+		return "redirect:/authorities/new";
 		
 	
 	}
