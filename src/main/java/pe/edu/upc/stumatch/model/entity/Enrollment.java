@@ -1,7 +1,5 @@
 package pe.edu.upc.stumatch.model.entity;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,14 +9,11 @@ import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
+import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(name="enrollments", 
-indexes = {@Index(columnList = "type", name = "enrollments_index_type")})
+indexes = {@Index(columnList = "type", name = "enrollments_index_type")},uniqueConstraints = @UniqueConstraint(columnNames = {"section_id"}))
 public class Enrollment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,7 +31,7 @@ public class Enrollment {
 	private Student student;
 	
 	@ManyToOne
-	@JoinColumn(name = "section_id")
+	@JoinColumn(name = "section_id", unique = true)
 	private Section section;
 
 	public Integer getId() {

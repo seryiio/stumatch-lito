@@ -21,7 +21,7 @@ public class Section {
 	private String id;
 	
 	@Max(10)
-	@Min(1)
+	@Min(0)
 	@Column(name = "vacancies", nullable = false)
 	private int vacancies;
 
