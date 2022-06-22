@@ -1,7 +1,8 @@
 <!doctype html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="layout/layout :: frag-head">
-<meta charset="ISO-8859-1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Insert title here</title>
 </head>
 <body>
@@ -21,20 +22,23 @@
 					<div class="fw-bold">Creditos Maximos:</div>
 					<p th:text="${student.creditAmount}"></p>
 				</div>
-				<div class="ms-2 me-auto col mt-2 mb-2">
-					<div class="fw-bold">MATRICULA: 2022 - 01</div>
+				<div class="ms-2 me-auto col mt-2 mb-2 text-end">
+					<div class="fw-bold fs-2">MATRICULA: 2022 - 01</div>
 				</div>
 			</div>
 		</div>
 	</section>
 
+					<div class="alert alert-success alert-dismissable" role="alert" th:if="${success != null}">
+						<label th:text="${success}"></label>
+					  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
 	<section class="container">
 		<div class="row">
 			<div class="col card text-center ms-5 me-5 mb-3 mt-5">
 				<div class="card-header text-start" style="background-color: white">Lista
 					de Cursos</div>
 				<div class="card-body">
-
 					<table class="table table-bordered">
 						<thead style="background-color: #FFBFBF">
 							<tr>
@@ -64,7 +68,7 @@
 					Matriculados</div>
 				<div class="card-body">
 
-					<table class="table table-bordered">
+					<table class="table table-striped">
 						<thead style="background-color: #FFBFBF">
 							<tr>
 								<th scope="col">Curso</th>

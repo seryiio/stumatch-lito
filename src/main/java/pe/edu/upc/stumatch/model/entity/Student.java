@@ -49,6 +49,7 @@ public class Student {
 	@Column(name = "email_personal", length = 70)	
 	private String emailPersonal;
 
+	@Min(0)
 	@Column(name = "credit_amount", columnDefinition = ("NUMERIC(2)"))	
 	private Integer creditAmount;
 	

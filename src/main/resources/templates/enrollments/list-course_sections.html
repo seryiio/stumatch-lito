@@ -62,11 +62,15 @@
 				th:object="${enrollment}" method="post"
 				class="row g-3 needs-validation justify-content-center">
 
-				<div class="col-md-2">
+				<div class="col-md-3   mx-auto">
 					<label for="section" class="form-label">Codigo de la
-						Seccion</label> <input type="text" class="form-control"
-						th:field="*{section}">
+						Seccion</label> <select class="form-select" th:field="*{section}" required>
+						<option value="">Elige una Seccion</option>
+						<option th:each="section : ${sections}" th:value="${section.id}"
+							th:text="${section.id}" th:if="${section.course.id == course.id}"></option>
+					</select>
 				</div>
+
 				<div class="col-md-2 invisible" style="text-align: left;">
 					<label for="student" class="form-label">Alumno</label> <select
 						class="form-select" th:field="*{student}" required>

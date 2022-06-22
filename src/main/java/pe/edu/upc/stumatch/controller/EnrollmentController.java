@@ -6,17 +6,21 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import pe.edu.upc.stumatch.utils.UserAuthentication;
+import pe.edu.upc.stumatch.business.crud.CareerService;
 import pe.edu.upc.stumatch.business.crud.CourseService;
 import pe.edu.upc.stumatch.business.crud.EnrollmentService;
 import pe.edu.upc.stumatch.business.crud.SectionService;
 import pe.edu.upc.stumatch.business.crud.StudentService;
+import pe.edu.upc.stumatch.model.entity.Career;
 import pe.edu.upc.stumatch.model.entity.Course;
 import pe.edu.upc.stumatch.model.entity.Enrollment;
 import pe.edu.upc.stumatch.model.entity.Section;
@@ -33,9 +37,12 @@ public class EnrollmentController {
 
 	@Autowired
 	private SectionService sectionService;
-	
+
 	@Autowired
 	private StudentService studentService;
+
+	@Autowired
+	private CareerService careerService;
 
 	@Autowired
 	private UserAuthentication userAuthentication;
@@ -74,17 +81,17 @@ public class EnrollmentController {
 	}
 
 	@GetMapping("{id}/select_section")
-	public String selectSection(Model model, @PathVariable("id") String id) {
+	public String selectSection(Model model, @PathVariable("id") String id, @ModelAttribute("course") Course course) {
 		Enrollment enrollment = new Enrollment();
 		model.addAttribute("enrollment", enrollment);
-		if (userAuthentication.isAuthenticated()) { 
+		if (userAuthentication.isAuthenticated()) {
 			userAuthentication.getSegment(model);
 		}
 		try {
 			if (courseService.existById(id)) {
 				Optional<Course> optional = courseService.findById(id);
 				model.addAttribute("course", optional.get());
-				
+
 				List<Enrollment> enrollments = enrollmentService.getAll();
 				model.addAttribute("enrollments", enrollments);
 				List<Section> sections = sectionService.getAll();
@@ -101,11 +108,11 @@ public class EnrollmentController {
 	}
 
 	@PostMapping("savenewSection")
-	public String saveSelectSection(Model model, @ModelAttribute("enrollment") Enrollment enrollment) {
+	public String saveSelectSection(Model model, @ModelAttribute("enrollment") Enrollment enrollment,
+			@ModelAttribute("section") Section section, @ModelAttribute("course") Course course,
+			@ModelAttribute("student") Student student) {
 		try {
 			enrollment.setNumberCycle("2022-01");
-			Enrollment enrollmentSaved = enrollmentService.create(enrollment);
-		
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -128,11 +135,13 @@ public class EnrollmentController {
 		}
 		return "redirect:/enrollments";
 	}
-	
+
 	@GetMapping("{id}/delete")
-	public String deleteStudent(Model model, @PathVariable("id") Integer id) {
+	public String deleteEnrollment(Model model, @PathVariable("id") Integer id,
+			@ModelAttribute("enrollment") Enrollment enrollment, @ModelAttribute("section") Section section,
+			@ModelAttribute("student") Student student, @ModelAttribute("course") Course course) {
 		try {
-			if(enrollmentService.existById(id)) {
+			if (enrollmentService.existById(id)) {
 				enrollmentService.deleteById(id);
 			} else {
 				return "redirect:/enrollments";
@@ -143,7 +152,7 @@ public class EnrollmentController {
 		}
 		return "redirect:/enrollments";
 	}
-	
+
 	@GetMapping("/report")
 	public String listEnrollmentforCycle(Model model) {
 
