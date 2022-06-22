@@ -105,6 +105,7 @@ public class EnrollmentController {
 		try {
 			enrollment.setNumberCycle("2022-01");
 			Enrollment enrollmentSaved = enrollmentService.create(enrollment);
+		
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
