@@ -1,7 +1,7 @@
 package pe.edu.upc.stumatch.model.entity;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,34 +12,25 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "authorities", 
-	uniqueConstraints = { @UniqueConstraint(columnNames = { "user_id", "authority" }) })
-public class Authority {
+@Table(name = "authorities", uniqueConstraints = { @UniqueConstraint(columnNames = { "user_id", "auth" }) })
+public class Authority implements Serializable{
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 
-	@Column(length = 30, nullable = false)
-	private String authority;
+	private String auth;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne//(cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_id")
 	private User user;	// username
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getAuthority() {
-		return authority;
-	}
-
-	public void setAuthority(String authority) {
-		this.authority = authority;
 	}
 
 	public User getUser() {
@@ -50,6 +41,18 @@ public class Authority {
 		this.user = user;
 	}
 
+	//CAMBIO DE GET Y SET
+	public String getAuth() {
+		return auth;
+	}
+
+	public void setAuth(String auth) {
+		this.auth = auth;
+	}
+	
+	
+
+	
 	
 
 } 

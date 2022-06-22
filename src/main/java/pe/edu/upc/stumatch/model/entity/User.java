@@ -76,7 +76,7 @@ public class User {
 	// Add ROLE or ACCESS to user
 	public void addAuthority( String auth ) {
 		Authority authority = new Authority();
-		authority.setAuthority( auth ) ;
+		authority.setAuth( auth ) ;
 		authority.setUser( this );
 
 		this.authorities.add( authority );

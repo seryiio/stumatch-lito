@@ -1,7 +1,8 @@
 package pe.edu.upc.stumatch.business.crud.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import pe.edu.upc.stumatch.business.crud.AuthorityService;
@@ -14,9 +15,23 @@ public class AuthorityServiceImpl implements AuthorityService {
 	@Autowired
 	private AuthorityRepository aR;
 
+	//@Override
+//	public JpaRepository<Authority, Long> getJpaRepository() {
+//		return this.aR;
+//	}
+
 	@Override
-	public JpaRepository<Authority, Long> getJpaRepository() {
-		return this.aR;
+	public void insert(Authority authority) {
+		// TODO Auto-generated method stub
+		aR.save(authority);
 	}
+
+	@Override
+	public List<Authority> list() {
+		// TODO Auto-generated method stub
+		return aR.findAll();
+	}
+
+	
 	
 }

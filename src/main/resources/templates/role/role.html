@@ -21,26 +21,57 @@
 			<div class="card text-center">
 				<div class="card-header">Estudiante</div>
 				<div class="card-body" style="text-align: left;">
-					<form th:action="@{/authoritys/savenew}" th:object="${authority}"
-						method="post" class="row g-3 needs-validation" novalidate>
-						<div class="col-md-2">
-							<label for="user" class="form-label">ID del Usuario</label> <input
-								type="text" class="form-control" th:field="*{user}" required>
-							<div class="valid-feedback">Looks good!</div>
+					
+					
+					
+			
+				<form th:action="@{/authorities/save}" th:object="${authority}" method="post">
+
+
+				
+						<div class="form-group row">
+								
+							<label for="auth" class="col-sm-2 col-form-label">Role: </label>
+							<div class="col-sm-6">
+								<select name="select" th:field="*{auth}" class="custom-select custom-select-sm" required>
+									<option value="ROLE_ADMINSITRATOR">ROLE_ADMINISTRATOR</option>
+									<option value="ROLE_STUDENT" selected>ROLE_STUDENT</option>
+								</select>
+
+							</div>
+				
+						</div>
+						
+
+						<div class="form-group row">
+							<label for="color" class="col-sm-2 col-form-label">Usuario</label>
+							<div class="col-sm-6">
+								<select class="custom-select custom-select-sm"
+									th:field="*{user}">
+									<option th:each="u : ${listaUsuarios}" th:value="${u.id}"
+										th:utext="${u.username}" />
+								</select>
+							</div>
 						</div>
 
-						<div class="col-md-2">
-							<label for="authority" class="form-label">Rol 1</label> <input
-								type="text" class="form-control" th:field="*{authority}" required>
-							<div class="valid-feedback">Looks good!</div>
+
+<!--  
+						<div class="form-group row">
+							<div class="col-sm-6">
+								<input type="submit" value="Guardar" class="btn btn-secondary"></input>
+								<a href="/authorities/list" class="btn btn-danger">Cancelar</a>
+							</div>
 						</div>
-						<div class="col-12" style="text-align: center;">
+						<p th:text="${mensaje}" class="form-text text-danger"></p>
+	-->
+	<div class="col-12" style="text-align: center;">
 							<button class="btn btn-success" type="submit">
-								<i class="fas fa-plus"></i> Crear Estudiante
+								<i class="fas fa-plus"></i> Crear
 							</button>
 						</div>
 
 					</form>
+		
 				</div>
 
 
