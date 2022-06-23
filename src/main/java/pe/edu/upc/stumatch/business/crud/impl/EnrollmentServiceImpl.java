@@ -1,5 +1,7 @@
 package pe.edu.upc.stumatch.business.crud.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
@@ -18,4 +20,19 @@ public class EnrollmentServiceImpl implements EnrollmentService{
 	public JpaRepository<Enrollment, Integer> getJpaRepository() {
 		return this.enrollmentRepository;
 	}
+	
+	@Override
+	public List<String[]> Reporte1(){
+		return this.enrollmentRepository.Reporte1();
+	}
+	
+	@Override
+    public Integer insert(Enrollment enrollment) {
+        int rpta = enrollmentRepository.BuscarCurso(enrollment.getSection().getCourse().getId(),enrollment.getStudent().getId());
+        if (rpta == 0) {
+        	enrollmentRepository.save(enrollment);
+        	System.out.println(rpta);
+        }
+        return rpta;
+    }
 }

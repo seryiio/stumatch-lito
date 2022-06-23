@@ -1,6 +1,7 @@
 package pe.edu.upc.stumatch.controller;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import pe.edu.upc.stumatch.utils.UserAuthentication;
@@ -110,7 +112,7 @@ public class EnrollmentController {
 	@PostMapping("savenewSection")
     public String saveSelectSection(Model model, @ModelAttribute("enrollment") Enrollment enrollment,
             @ModelAttribute("section") Section section, @ModelAttribute("course") Course course,
-            @ModelAttribute("student") Student student) {
+            @ModelAttribute("student") Student student, SessionStatus status) {
         try {
             enrollment.setNumberCycle("2022-01");
             int vacancies = enrollment.getSection().getVacancies();
@@ -121,16 +123,14 @@ public class EnrollmentController {
             int newcreditAmount = creditAmount - creditCourse;
             section.setVacancies(newvacancies);
             student.setCreditAmount(newcreditAmount);
-            String idCourseinSection = section.getCourse().getId();
-            String idCourseinEnrollment = enrollment.getSection().getCourse().getId();
-            if (idCourseinEnrollment != null && enrollmentService.existById(1) && enrollment.getStudent().getId().equals(student)) {
-                enrollmentService.update(enrollment);
+            int rpta = enrollmentService.insert(enrollment);
+            if (rpta > 0) {
+                model.addAttribute("mensaje", "Ya existe");
+                return "/enrollments";
             } else {
-                Enrollment enrollmentSaved = enrollmentService.create(enrollment);
+                model.addAttribute("mensaje", "Se guardó correctamente");
+                status.setComplete();
             }
-
-            Enrollment enrollmentSaved = enrollmentService.create(enrollment);
-
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -171,12 +171,11 @@ public class EnrollmentController {
 		return "redirect:/enrollments";
 	}
 
-	@GetMapping("/report")
-	public String listEnrollmentforCycle(Model model) {
+	@RequestMapping("/report")
+	public String listEnrollmentforCycle(Map<String, Object> model) {
 
 		try {
-			List<Enrollment> enrollments = enrollmentService.getAll();
-			model.addAttribute("enrollments", enrollments);
+			model.put("reporte1", enrollmentService.Reporte1());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

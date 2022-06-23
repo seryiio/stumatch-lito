@@ -29,24 +29,18 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="enrollment : ${enrollments}"
-							th:if="${enrollment.numberCycle == '2022-01'}">
-							<th scope="row" th:text="${enrollment.student.id}"></th>
-							<td th:text="${enrollment.student.firstName}"></td>
-							<td th:text="${enrollment.student.lastName}"></td>
-							<td th:text="${enrollment.student.emailUniversity}"></td>
-							<td th:text="${enrollment.student.emailPersonal}"></td>
-							<td th:text="${enrollment.student.phoneNumber}"></td>
-							<td th:text="${enrollment.student.cycle}"></td>
-							<td th:text="${enrollment.student.career.name}"></td>
+						<tr th:each="report : ${reporte1}">
+							<th scope="row" th:text="${report[0]}"></th>
+							<th scope="row" th:text="${report[1]}"></th>
+							<th scope="row" th:text="${report[2]}"></th>
+							<th scope="row" th:text="${report[3]}"></th>
+							<th scope="row" th:text="${report[4]}"></th>
+							<th scope="row" th:text="${report[5]}"></th>
+							<th scope="row" th:text="${report[6]}"></th>
+							<th scope="row" th:text="${report[7]}"></th>
 						</tr>
 					</tbody>
 				</table>
-
-			</div>
-			<div class="card-footer text-muted">
-				<a class="btn btn-danger" th:href="@{/careers/new}" role="button"><i
-					class="fa-solid fa-plus"></i> Agregar nueva Carrera</a>
 			</div>
 		</div>
 	</section>
