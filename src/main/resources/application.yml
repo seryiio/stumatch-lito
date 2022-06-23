@@ -4,9 +4,9 @@ server:
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/webAPP
+    url: jdbc:postgresql://localhost:5432/stumatchdb1
     username: postgres
-    password: 0Tf#5Bgs
+    password: 1234
   jpa:
     database: postgresql
     hibernate:
