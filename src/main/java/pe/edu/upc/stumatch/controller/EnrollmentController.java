@@ -110,9 +110,7 @@ public class EnrollmentController {
 	}
 
 	@PostMapping("savenewSection")
-    public String saveSelectSection(Model model, @ModelAttribute("enrollment") Enrollment enrollment,
-            @ModelAttribute("section") Section section, @ModelAttribute("course") Course course,
-            @ModelAttribute("student") Student student, SessionStatus status) {
+    public String saveSelectSection(Model model,Enrollment enrollment,Section section,  Course course, Student student, SessionStatus status) {
         try {
             enrollment.setNumberCycle("2022-01");
             int vacancies = enrollment.getSection().getVacancies();
@@ -123,17 +121,13 @@ public class EnrollmentController {
             int newcreditAmount = creditAmount - creditCourse;
             enrollment.getSection().setVacancies(newvacancies);
             enrollment.getStudent().setCreditAmount(newcreditAmount);
-            String CursoEnSeccion = enrollment.getSection().getCourse().getId();
-            String EstudianteenEnrollment = enrollment.getStudent().getId();
-            
-            
-            //////////////SE MUERE :C///////////////
-            int rpta = enrollmentService.insert(enrollment);
-            
+                //////////////WENAAAAAAAAAAAAAAAAAAAA//////////////
+              int rpta = enrollmentService.insert(enrollment);
+           
             if (rpta >= 1) {
             	System.out.print("Ya existe");
                 model.addAttribute("mensaje", "Ya existe");
-                return "/enrollments";
+                return "redirect:/enrollments";
             } else {
             	model.addAttribute("mensaje", "Se guardó correctamente");
                 status.setComplete();

@@ -12,8 +12,8 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name="enrollments", 
-indexes = {@Index(columnList = "type", name = "enrollments_index_type")},uniqueConstraints = @UniqueConstraint(columnNames = {"section_id"}))
+@Table(name="enrollments") 
+//indexes = {@Index(columnList = "type", name = "enrollments_index_type")},uniqueConstraints = @UniqueConstraint(columnNames = {"section_id"}))
 public class Enrollment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +31,7 @@ public class Enrollment {
 	private Student student;
 	
 	@ManyToOne
-	@JoinColumn(name = "section_id", unique = true)
+	@JoinColumn(name = "section_id")
 	private Section section;
 
 	public Integer getId() {
