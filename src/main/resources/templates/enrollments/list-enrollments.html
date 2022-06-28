@@ -76,6 +76,7 @@
 								<th scope="col">Curso</th>
 								<th scope="col">Creditos</th>
 								<th scope="col">Seccion</th>
+								<th scope="col">Dia</th>
 								<th scope="col" colspan="3">Hora</th>
 								<th scope="col"></th>
 							</tr>
@@ -87,6 +88,7 @@
 								<th scope="row" th:text="${enrollment.section.course.name}"></th>
 								<td th:text="${enrollment.section.course.numberCredits}"></td>
 								<td th:text="${enrollment.section.id}"></td>
+								<td th:text="${enrollment.section.day}"></td>
 								<td th:text="${enrollment.section.startTime}"></td>
 								<td>-</td>
 								<td th:text="${enrollment.section.endTime}"></td>

@@ -16,7 +16,7 @@ public interface EnrollmentRepository extends JpaRepository<Enrollment, Integer>
 	public List<String[]> Reporte1();
 	
 	@Query("select count(s.course) from Enrollment e inner join Section s on e.section=s.id where s.course=:curso and e.student=:alumno group by e.student")
-	public int BuscarCurso(@Param("curso") String Curso,@Param("alumno") String Alumno);
+	public int BuscarCurso(@Param("curso") String curso,@Param("alumno") String alumno);
 
 }
 
