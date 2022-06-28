@@ -15,7 +15,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	
 	Optional<User> findByUsername(String username);
 	
-	@Query("select count(u.username) from User u where u.username =:username")
+	@Query("select count(u.username) from User u where u.idSegment =:username")
 	public int buscarUsername(@Param("username") String nombre);
 	
 }
