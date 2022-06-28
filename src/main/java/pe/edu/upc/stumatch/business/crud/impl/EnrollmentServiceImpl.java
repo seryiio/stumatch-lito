@@ -29,10 +29,30 @@ public class EnrollmentServiceImpl implements EnrollmentService{
 	
 	@Override
     public Integer insert(Enrollment enrollment) {
-        int rpta = enrollmentRepository.BuscarCurso(enrollment.getSection().getCourse().getId(),enrollment.getStudent().getId());
+       /* int rpta = enrollmentRepository.BuscarCurso(enrollment.getSection().getCourse().getId(),enrollment.getStudent().getId());
         if (rpta == 0) {
         	enrollmentRepository.save(enrollment);
         }
-        return rpta;
+        return rpta;*/
+        
+        int CursosRepetidos=0;
+       CursosRepetidos = this.enrollmentRepository.BuscarCurso(enrollment.getSection().getCourse().getId(), enrollment.getStudent().getId());
+       if (CursosRepetidos<1)
+       {
+    	   enrollmentRepository.save(enrollment);
+       }
+       
+       
+       
+       
+       for (int i =0 ; i<20 ; i++) {
+        System.out.println(enrollment.getSection().getCourse().getId());
+        System.out.println(enrollment.getStudent().getId());
+        System.out.println(CursosRepetidos);
+        }
+       return CursosRepetidos;
+        
+        
+        
     }
 }
