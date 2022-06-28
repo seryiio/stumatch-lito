@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import pe.edu.upc.stumatch.model.repository.EnrollmentRepository;
 import pe.edu.upc.stumatch.business.crud.EnrollmentService;
 import pe.edu.upc.stumatch.model.entity.Enrollment;
+import pe.edu.upc.stumatch.model.entity.Section;
 
 @Service
 public class EnrollmentServiceImpl implements EnrollmentService{
@@ -31,7 +32,6 @@ public class EnrollmentServiceImpl implements EnrollmentService{
         int rpta = enrollmentRepository.BuscarCurso(enrollment.getSection().getCourse().getId(),enrollment.getStudent().getId());
         if (rpta == 0) {
         	enrollmentRepository.save(enrollment);
-        	System.out.println(rpta);
         }
         return rpta;
     }

@@ -117,18 +117,25 @@ public class EnrollmentController {
             enrollment.setNumberCycle("2022-01");
             int vacancies = enrollment.getSection().getVacancies();
             int newvacancies = vacancies - 1;
-            section.setVacancies(newvacancies);
+            enrollment.getSection().setVacancies(newvacancies);
             int creditCourse = enrollment.getSection().getCourse().getNumberCredits();
             int creditAmount = enrollment.getStudent().getCreditAmount();
             int newcreditAmount = creditAmount - creditCourse;
-            section.setVacancies(newvacancies);
-            student.setCreditAmount(newcreditAmount);
+            enrollment.getSection().setVacancies(newvacancies);
+            enrollment.getStudent().setCreditAmount(newcreditAmount);
+            String CursoEnSeccion = enrollment.getSection().getCourse().getId();
+            String EstudianteenEnrollment = enrollment.getStudent().getId();
+            
+            
+            //////////////SE MUERE :C///////////////
             int rpta = enrollmentService.insert(enrollment);
-            if (rpta > 0) {
+            
+            if (rpta >= 1) {
+            	System.out.print("Ya existe");
                 model.addAttribute("mensaje", "Ya existe");
                 return "/enrollments";
             } else {
-                model.addAttribute("mensaje", "Se guardó correctamente");
+            	model.addAttribute("mensaje", "Se guardó correctamente");
                 status.setComplete();
             }
         } catch (Exception e) {
