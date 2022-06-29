@@ -21,6 +21,5 @@ public interface EnrollmentRepository extends JpaRepository<Enrollment, Integer>
 	@Query(	value="select count(s.course_id) from enrollments e inner join sections s on e.section_id=s.section_id where s.course_id=:curso and e.student_id=:alumno", nativeQuery = true )
 	public int BuscarCurso(@Param("curso") String curso,@Param("alumno") String alumno);
 
-
 }
 

@@ -18,21 +18,21 @@ import javax.validation.constraints.Min;
 @Table(name = "sections")
 public class Section {
 	@Id
-	@Column(name = "section_id", length = 5, nullable = false)
+	@Column(name = "section_id", length = 5)
 	private String id;
 	
 	@Max(10)
 	@Min(0)
-	@Column(name = "vacancies", nullable = false)
+	@Column(name = "vacancies")
 	private int vacancies;
 
-	@Column(name = "start_time", nullable = false)
+	@Column(name = "start_time")
 	private String startTime;
 
-	@Column(name = "end_time", nullable = false)
+	@Column(name = "end_time")
 	private String endTime;
 	
-	@Column(name = "days", nullable = false)
+	@Column(name = "days")
 	private String day;
 
 	@ManyToOne

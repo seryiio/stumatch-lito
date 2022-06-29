@@ -63,3 +63,13 @@ INSERT INTO sections(section_id, days, vacancies, course_id, start_time, end_tim
 ('FAS62', 'Miercoles',10, 'CISWFAS','07:00','09:00','puingzmg'),
 ('IA61', 'Lunes',10, 'CISWIA','15:00','18:00','puinglaj'),
 ('PD61', 'Jueves',10, 'CISWPD','17:00','19:00','puingorm');
+
+INSERT INTO users(id, enable, id_segment, password, segment, username)VALUES
+(1,true,1,'$2a$10$RcUxMPPGUP7W0OnNvmZxxeoPUtH/0m8mCj7T63nc6YgVfNixLgj5C',1,'admin'),
+(2,true,201910528,'$2a$10$RcUxMPPGUP7W0OnNvmZxxeoPUtH/0m8mCj7T63nc6YgVfNixLgj5C',0,'u201910528'),
+(3,true,202210232,'$2a$10$RcUxMPPGUP7W0OnNvmZxxeoPUtH/0m8mCj7T63nc6YgVfNixLgj5C',0,'u202210232');
+
+INSERT INTO authorities(id, auth, user_id)VALUES
+(1,'ROLE_ADMINISTRATOR',1),
+(2,'ROLE_STUDENT',2),
+(3,'ROLE_STUDENT',3);
