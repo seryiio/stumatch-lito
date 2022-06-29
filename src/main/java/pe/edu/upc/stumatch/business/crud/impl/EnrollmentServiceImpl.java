@@ -68,9 +68,6 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 	public void NewVacancies(Section section, Enrollment enrollment) {
 	}
 
-	@Override
-	public void UpdateCredit(Student student, Enrollment enrollment) {
-	}
 
 	@Override
 	public Integer verifyVacancies(Enrollment enrollment) {
@@ -84,6 +81,12 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 		int rpta3 = 0;
 		rpta3 = this.enrollmentRepository.BuscarCreditos(enrollment.getStudent().getId());
 		return rpta3 - enrollment.getSection().getCourse().getNumberCredits();
+	}
+
+	@Override
+	public void UpdateCredit(Student student, Enrollment enrollment) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
