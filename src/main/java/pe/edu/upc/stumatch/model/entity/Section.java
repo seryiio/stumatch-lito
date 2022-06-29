@@ -22,7 +22,6 @@ public class Section {
 	private String id;
 	
 	@Max(10)
-	@Min(0)
 	@Column(name = "vacancies")
 	private int vacancies;
 
