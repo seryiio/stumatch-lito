@@ -21,5 +21,11 @@ public interface EnrollmentRepository extends JpaRepository<Enrollment, Integer>
 	@Query(	value="select count(s.course_id) from enrollments e inner join sections s on e.section_id=s.section_id where s.course_id=:curso and e.student_id=:alumno", nativeQuery = true )
 	public int BuscarCurso(@Param("curso") String curso,@Param("alumno") String alumno);
 
+	@Query(value="select s.vacancies from sections s where s.section_id=:seccion", nativeQuery = true )
+	public int BuscarVacantes(@Param("seccion") String seccion);
+	
+	@Query(value="select s.credit_amount from students s where s.student_id=:estudiante", nativeQuery = true )
+	public int BuscarCreditos(@Param("estudiante") String estudiante);
+	
 }
 

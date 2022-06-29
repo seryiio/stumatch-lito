@@ -110,37 +110,65 @@ public class EnrollmentController {
 	}
 
 	@PostMapping("savenewSection")
-    public String saveSelectSection(Model model,Enrollment enrollment,Section section,  Course course, Student student, SessionStatus status,RedirectAttributes redirectAttrs) {
-        try {
-            enrollment.setNumberCycle("2022-01");
-            int vacancies = enrollment.getSection().getVacancies();
-            int newvacancies = vacancies - 1;
-            enrollment.getSection().setVacancies(newvacancies);
-            int creditCourse = enrollment.getSection().getCourse().getNumberCredits();
-            int creditAmount = enrollment.getStudent().getCreditAmount();
-            int newcreditAmount = creditAmount - creditCourse;
-            enrollment.getSection().setVacancies(newvacancies);
-            enrollment.getStudent().setCreditAmount(newcreditAmount);
-                //////////////WENAAAAAAAAAAAAAAAAAAAA//////////////
-              int rpta = enrollmentService.insert(enrollment);
-           
-            if (rpta >= 1) {
-            	System.out.print("Ya existe"); redirectAttrs
-                .addFlashAttribute("mensaje", "Elimine una seccion para seleccionar otra")
-                .addFlashAttribute("clase", "danger");
-                return "redirect:/enrollments";
-            } else {
-            	 redirectAttrs
-                 .addFlashAttribute("mensaje", "Se guardo correctamente")
-                 .addFlashAttribute("clase", "sucess");
-            }
-            
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return "redirect:/enrollments";
-    }
+	public String saveSelectSection(Model model, Enrollment enrollment, Section section, Course course, Student student,
+			SessionStatus status, RedirectAttributes redirectAttrs) {
+		try {
+			enrollment.setNumberCycle("2022-01");
+			int vacancies = enrollment.getSection().getVacancies();
+			int newvacancies = vacancies - 1;
+			enrollment.getSection().setVacancies(newvacancies);
+			int creditCourse = enrollment.getSection().getCourse().getNumberCredits();
+			int creditAmount = enrollment.getStudent().getCreditAmount();
+			int newcreditAmount = creditAmount - creditCourse;
+			enrollment.getSection().setVacancies(newvacancies);
+			enrollment.getStudent().setCreditAmount(newcreditAmount);
+			////////////// WENAAAAAAAAAAAAAAAAAAAA//////////////
+			int rpta2 = enrollmentService.verifyVacancies(enrollment);
+			int rpta3 = enrollmentService.veriflyCredits(enrollment);
+			int rpta = enrollmentService.insert(enrollment);
+
+			/*
+			 * if (rpta2 < 0) { redirectAttrs.addFlashAttribute("mensaje", "Por vago")
+			 * .addFlashAttribute("clase", "danger"); return "redirect:/enrollments"; } else
+			 * { redirectAttrs.addFlashAttribute("mensaje",
+			 * "Ta bien").addFlashAttribute("clase", "sucess"); }
+			 */
+			if (rpta >= 1) {
+				redirectAttrs.addFlashAttribute("mensaje", "Elimine una seccion para seleccionar otra")
+						.addFlashAttribute("clase", "danger");
+			} else if (rpta <= 1 && rpta2 > 0) {
+				redirectAttrs.addFlashAttribute("mensaje", "Se guardo correctamente").addFlashAttribute("clase",
+						"sucess");
+			}
+
+			if (rpta <= 1 && rpta2 <= 0) {
+				redirectAttrs.addFlashAttribute("mensaje", "No hay vacantes, seleccione otra seccion")
+						.addFlashAttribute("clase", "warning");
+			}
+			if (rpta <= 1 && rpta2 > 0 && rpta3 < 0) {
+				redirectAttrs.addFlashAttribute("mensaje", "Creditos insuficientes").addFlashAttribute("clase",
+						"warning");
+			}
+			/*
+			 * if (rpta >= 1) { if (rpta2 <= 0) {
+			 * System.out.print("ASDDASFSDAFSADFSDFSAFASDFSF");
+			 * redirectAttrs.addFlashAttribute("mensaje", "No hay :c")
+			 * .addFlashAttribute("clase", "danger"); } else {System.out.print("Ya existe");
+			 * redirectAttrs.addFlashAttribute("mensaje",
+			 * "Elimine una seccion para seleccionar otra") .addFlashAttribute("clase",
+			 * "danger");
+			 * 
+			 * return "redirect:/enrollments";} } else if (rpta < 1){
+			 * redirectAttrs.addFlashAttribute("mensaje",
+			 * "Se guardo correctamente").addFlashAttribute("clase", "sucess"); }
+			 */
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "redirect:/enrollments";
+	}
 
 	@PostMapping("{id}/update")
 	public String updateEnrollment(Model model, @ModelAttribute("enrollment") Enrollment enrollment,
@@ -159,17 +187,18 @@ public class EnrollmentController {
 	}
 
 	@GetMapping("{id}/delete")
-	public String deleteEnrollment(Model model, @PathVariable("id") Integer id) {
+	public String deleteEnrollment(Model model, @PathVariable("id") Integer id, RedirectAttributes redirectAttrs) {
 		try {
-			
+
 			if (enrollmentService.existById(id)) {
-				//enrollmentService.deleteById(id);
-				/*if (enrollment.getStudent().getId() == student.getId()) {
-					int creditAmount = 10;
-					int newcreditAmount = creditAmount + 5;
-					student.setCreditAmount(newcreditAmount);
-					studentService.update(student);
-				}*/
+				enrollmentService.deleteById(id);
+				redirectAttrs.addFlashAttribute("mensaje", "Se elimino correctamente").addFlashAttribute("clase",
+						"success");
+				/*
+				 * if (enrollment.getStudent().getId() == student.getId()) { int creditAmount =
+				 * 10; int newcreditAmount = creditAmount + 5;
+				 * student.setCreditAmount(newcreditAmount); studentService.update(student); }
+				 */
 			} else {
 				return "redirect:/enrollments";
 			}

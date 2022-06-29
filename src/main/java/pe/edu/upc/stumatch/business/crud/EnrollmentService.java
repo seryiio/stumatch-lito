@@ -11,9 +11,13 @@ public interface EnrollmentService extends CrudService<Enrollment, Integer>{
 
 	public Integer insert(Enrollment enrollment);
 	
+	public Integer verifyVacancies(Enrollment enrollment);
+	
+	public Integer veriflyCredits(Enrollment enrollment);
 	
 	public void NewVacancies(Section section,Enrollment enrollment);
 
 	public void UpdateCredit(Student student,Enrollment enrollment);
+	
 	
 }
