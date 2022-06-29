@@ -29,12 +29,11 @@
 		</div>
 	</section>
 
-	<div class="alert alert-success alert-dismissable" role="alert"
-		th:if="${success != null}">
-		<label th:text="${success}"></label>
-		<button type="button" class="btn-close" data-bs-dismiss="alert"
-			aria-label="Close"></button>
+	<div class="alert alert-success alert-dismissible fade show"
+		th:classappend="'alert-' + (${clase != null} ? ${clase} : info)"
+		th:if="${mensaje != null}" th:text="${mensaje}">
 	</div>
+	
 	<section class="container">
 		<div class="row">
 			<div class="col card text-center ms-5 me-5 mb-3 mt-5">

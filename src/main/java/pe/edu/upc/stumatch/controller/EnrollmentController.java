@@ -110,7 +110,7 @@ public class EnrollmentController {
 	}
 
 	@PostMapping("savenewSection")
-    public String saveSelectSection(Model model,Enrollment enrollment,Section section,  Course course, Student student, SessionStatus status) {
+    public String saveSelectSection(Model model,Enrollment enrollment,Section section,  Course course, Student student, SessionStatus status,RedirectAttributes redirectAttrs) {
         try {
             enrollment.setNumberCycle("2022-01");
             int vacancies = enrollment.getSection().getVacancies();
@@ -125,13 +125,16 @@ public class EnrollmentController {
               int rpta = enrollmentService.insert(enrollment);
            
             if (rpta >= 1) {
-            	System.out.print("Ya existe");
-                model.addAttribute("mensaje", "Ya existe");
+            	System.out.print("Ya existe"); redirectAttrs
+                .addFlashAttribute("mensaje", "Elimine una seccion para seleccionar otra")
+                .addFlashAttribute("clase", "danger");
                 return "redirect:/enrollments";
             } else {
-            	model.addAttribute("mensaje", "Se guardó correctamente");
-                status.setComplete();
+            	 redirectAttrs
+                 .addFlashAttribute("mensaje", "Se guardo correctamente")
+                 .addFlashAttribute("clase", "sucess");
             }
+            
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -156,12 +159,17 @@ public class EnrollmentController {
 	}
 
 	@GetMapping("{id}/delete")
-	public String deleteEnrollment(Model model, @PathVariable("id") Integer id,
-			@ModelAttribute("enrollment") Enrollment enrollment, @ModelAttribute("section") Section section,
-			@ModelAttribute("student") Student student, @ModelAttribute("course") Course course) {
+	public String deleteEnrollment(Model model, @PathVariable("id") Integer id) {
 		try {
+			
 			if (enrollmentService.existById(id)) {
-				enrollmentService.deleteById(id);
+				//enrollmentService.deleteById(id);
+				/*if (enrollment.getStudent().getId() == student.getId()) {
+					int creditAmount = 10;
+					int newcreditAmount = creditAmount + 5;
+					student.setCreditAmount(newcreditAmount);
+					studentService.update(student);
+				}*/
 			} else {
 				return "redirect:/enrollments";
 			}

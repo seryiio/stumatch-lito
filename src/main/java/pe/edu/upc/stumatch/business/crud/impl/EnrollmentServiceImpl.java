@@ -1,21 +1,27 @@
 package pe.edu.upc.stumatch.business.crud.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import pe.edu.upc.stumatch.model.repository.EnrollmentRepository;
+import pe.edu.upc.stumatch.model.repository.SectionRepository;
 import pe.edu.upc.stumatch.business.crud.EnrollmentService;
 import pe.edu.upc.stumatch.model.entity.Enrollment;
 import pe.edu.upc.stumatch.model.entity.Section;
+import pe.edu.upc.stumatch.model.entity.Student;
 
 @Service
 public class EnrollmentServiceImpl implements EnrollmentService{
 	
 	@Autowired
 	private EnrollmentRepository enrollmentRepository;
+	
+	@Autowired
+	private SectionRepository sectionRepository;
 	
 	@Override
 	public JpaRepository<Enrollment, Integer> getJpaRepository() {
@@ -41,10 +47,6 @@ public class EnrollmentServiceImpl implements EnrollmentService{
        {
     	   enrollmentRepository.save(enrollment);
        }
-       
-       
-       
-       
        for (int i =0 ; i<20 ; i++) {
         System.out.println(enrollment.getSection().getCourse().getId());
         System.out.println(enrollment.getStudent().getId());
@@ -52,7 +54,14 @@ public class EnrollmentServiceImpl implements EnrollmentService{
         }
        return CursosRepetidos;
         
-        
-        
     }
+
+	@Override
+	public void NewVacancies(Section section,Enrollment enrollment) {
+	}
+	
+	@Override
+	public void UpdateCredit(Student student,Enrollment enrollment) {
+	}
+
 }
