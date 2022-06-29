@@ -37,7 +37,7 @@ public class EnrollmentServiceImpl implements EnrollmentService{
         
         int CursosRepetidos=0;
        CursosRepetidos = this.enrollmentRepository.BuscarCurso(enrollment.getSection().getCourse().getId(), enrollment.getStudent().getId());
-       if (CursosRepetidos<1)
+       if (CursosRepetidos==0)
        {
     	   enrollmentRepository.save(enrollment);
        }
