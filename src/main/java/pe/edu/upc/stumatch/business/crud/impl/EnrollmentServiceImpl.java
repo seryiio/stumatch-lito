@@ -84,9 +84,9 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 	}
 
 	@Override
-	public void UpdateCredit(Student student, Enrollment enrollment) {
-		// TODO Auto-generated method stub
-		
-	}
+    public void Restaurar(Integer IDenrollment) {
+        enrollmentRepository.Restaurarcreditos(IDenrollment);
+        enrollmentRepository.RestaurarVacantes(IDenrollment);
 
+    }
 }

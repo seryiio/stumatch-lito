@@ -27,18 +27,14 @@
 			
 				<div class="col-md-4">
 				    <label for="id" class="form-label">Codigo</label>
-				    <input type="text" class="form-control" th:field="*{id}" required>
-				    <div class="valid-feedback">
-				      Looks good!
-				    </div>
+				    <input type="text" class="form-control" id="id" th:field="*{id}" th:errorclass="'form-control alert-danger'">
+				    <small class="form-text text-danger" th:if="${#fields.hasErrors('id')}" th:errors="*{id}"></small>
 				</div>
 			
 				<div class="col-md-4">
 				    <label for="name" class="form-label">Nombre de la Carrera</label>
-				    <input type="text" class="form-control" th:field="*{name}" required>
-				    <div class="valid-feedback">
-				      Looks good!
-				    </div>
+				    <input type="text" class="form-control" id="name" th:field="*{name}" th:errorclass="'form-control alert-danger'">
+				    <small class="form-text text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small>
 				</div>
 				
 				

@@ -8,15 +8,20 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "careers")
 public class Career {
 	@Id
+	@NotEmpty(message = "Debe ingresar un ID")
+	@Size(min = 1,max = 80, message = "El valor debe estar entre 1 y 8")
 	@Column(name = "career_id", length = 8, nullable = false)
 	private String id;
 	
-	@Column(name = "name", length = 80)
+	@Size(min = 1,max = 80, message = "El valor debe estar entre 1 y 80")
+	@Column(name = "name")
 	private String name;
 	
 	@OneToMany(mappedBy = "career")

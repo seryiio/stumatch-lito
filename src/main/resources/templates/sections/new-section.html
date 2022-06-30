@@ -25,14 +25,12 @@
 			<form th:action="@{/sections/savenew}" th:object="${section}" method="post" class="row g-3 needs-validation" novalidate>
 				  <div class="col-md-2">
 				    <label for="id" class="form-label">Codigo</label>
-				    <input type="text" class="form-control" th:field="*{id}" required>
-				    <div class="valid-feedback">
-				      Looks good!
-				    </div>
+				    <input type="text" class="form-control" th:field="*{id}" th:errorclass="'form-control alert-danger'">
+				    <small class="form-text text-danger" th:if="${#fields.hasErrors('id')}" th:errors="*{id}"></small>
 				  </div>
 				  <div class="col-md-3">
 				    <label for="course" class="form-label">Curso</label>
-				    <select class="form-select" th:field="*{course}" required>
+				    <select class="form-select" th:field="*{course}" th:errorclass="'form-control alert-danger'">
 				      <option value="">Elige un Curso</option>
 				      <option th:each="course : ${courses}" th:value="${course.id}" th:text="${course.name}"></option>
 				    </select>
@@ -42,36 +40,31 @@
 				  </div>
 				   <div class="col-md-4">
 				    <label for="day" class="form-label">Dia</label>
-				    <input type="text" class="form-control" th:field="*{day}" required>
-				    <div class="valid-feedback">
-				      Looks good!
-				    </div>
+				    <input type="text" class="form-control" th:field="*{day}" th:errorclass="'form-control alert-danger'">
+				    <small class="form-text text-danger" th:if="${#fields.hasErrors('day')}" th:errors="*{day}"></small>
 				  </div>
 				   <div class="col-md-4">
 				    <label for="startTime" class="form-label">Hora de Inicio</label>
-				    <input type="time" class="form-control" th:field="*{startTime}" required>
-				    <div class="valid-feedback">
-				      Looks good!
-				    </div>
+				    <input type="time" class="form-control" th:field="*{startTime}" th:errorclass="'form-control alert-danger'">
+				    <small class="form-text text-danger" th:if="${#fields.hasErrors('startTime')}" th:errors="*{startTime}"></small>
 				  </div>
 				    <div class="col-md-4">
 				    <label for="endTime" class="form-label">Hora de Fin</label>
-				    <input type="time" class="form-control" th:field="*{endTime}" required>
+				    <input type="time" class="form-control" th:field="*{endTime}" th:errorclass="'form-control alert-danger'">
+				    <small class="form-text text-danger" th:if="${#fields.hasErrors('endTime')}" th:errors="*{endTime}"></small>
 				    <div class="valid-feedback">
 				      Looks good!
 				    </div>
 				  </div>
 				    <div class="col-md-4">
 				    <label for="vacancies" class="form-label">Vacantes</label>
-				    <input type="text" class="form-control" th:field="*{vacancies}" required>
-				    <div class="valid-feedback">
-				      Looks good!
-				    </div>
+				    <input type="text" class="form-control" th:field="*{vacancies}" th:errorclass="'form-control alert-danger'">
+				    <small class="form-text text-danger" th:if="${#fields.hasErrors('vacancies')}" th:errors="*{vacancies}"></small>
 				  </div>
 				  
 					<div class="col-md-3">
 				    <label for="teacher" class="form-label">Profesor</label>
-				    <select class="form-select" th:field="*{teacher}" required>
+				    <select class="form-select" th:field="*{teacher}" th:errorclass="'form-control alert-danger'">
 				      <option value="">Elige un Profesor</option>
 				      <option th:each="teacher : ${teachers}" th:value="${teacher.id}" th:text="${teacher.lastName}"></option>
 				    </select>
