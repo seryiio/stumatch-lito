@@ -68,9 +68,6 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 	public void NewVacancies(Section section, Enrollment enrollment) {
 	}
 
-	@Override
-	public void UpdateCredit(Student student, Enrollment enrollment) {
-	}
 
 	@Override
 	public Integer verifyVacancies(Enrollment enrollment) {
@@ -92,5 +89,4 @@ public class EnrollmentServiceImpl implements EnrollmentService {
         enrollmentRepository.RestaurarVacantes(IDenrollment);
 
     }
-
 }
