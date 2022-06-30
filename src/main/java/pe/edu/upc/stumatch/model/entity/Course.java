@@ -11,22 +11,33 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "courses")
 public class Course {
 	@Id
-	@Column(name = "course_id")
+	@NotEmpty(message = "Debe ingresar un ID")
+	@Size(min = 1,max = 10	, message = "El valor debe estar entre 1 y 10")
+	@Column(name = "course_id", length = 10, nullable = false)
 	private String id;
-	
+
+	@Size(min = 1,max = 75, message = "El valor debe estar entre 1 y 75")
 	@Column(name = "name", length = 75, nullable = false)
 	private String name;
 	
-	@Column(name = "number_cycle", columnDefinition = "NUMERIC(2)", nullable = false)
-	private Integer numberCycle;
-	
-	@Column(name = "number_credits", columnDefinition = "NUMERIC(2)", nullable = false)
-	private Integer numberCredits;
+	@Min(value = 1, message = "El valor debe ser mayor a 1")
+	@Max(value = 10, message = "El valor debe menor a 10")
+	@Column(name = "number_cycle")
+	private int numberCycle;
+
+	@Min(value = 1, message = "El valor debe ser mayor a 1")
+	@Max(value = 8, message = "El valor debe ser menor a 8")
+	@Column(name = "number_credits")
+	private int numberCredits;
 	
 	@OneToMany(mappedBy = "course")
 	private List<Section> sections;
@@ -38,7 +49,7 @@ public class Course {
 	public Course() {
 		sections = new ArrayList<>();
 	}
-	
+
 	public String getId() {
 		return id;
 	}
@@ -55,28 +66,28 @@ public class Course {
 		this.name = name;
 	}
 
+	public int getNumberCycle() {
+		return numberCycle;
+	}
+
+	public void setNumberCycle(int numberCycle) {
+		this.numberCycle = numberCycle;
+	}
+
+	public int getNumberCredits() {
+		return numberCredits;
+	}
+
+	public void setNumberCredits(int numberCredits) {
+		this.numberCredits = numberCredits;
+	}
+
 	public List<Section> getSections() {
 		return sections;
 	}
 
 	public void setSections(List<Section> sections) {
 		this.sections = sections;
-	}
-
-	public Integer getNumberCycle() {
-		return numberCycle;
-	}
-
-	public void setNumberCycle(Integer numberCycle) {
-		this.numberCycle = numberCycle;
-	}
-
-	public Integer getNumberCredits() {
-		return numberCredits;
-	}
-
-	public void setNumberCredits(Integer numberCredits) {
-		this.numberCredits = numberCredits;
 	}
 
 	public Career getCareer() {
@@ -86,5 +97,6 @@ public class Course {
 	public void setCareer(Career career) {
 		this.career = career;
 	}
+	
 	
 }

@@ -86,4 +86,11 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 		return rpta3 - enrollment.getSection().getCourse().getNumberCredits();
 	}
 
+	@Override
+    public void Restaurar(Integer IDenrollment) {
+        enrollmentRepository.Restaurarcreditos(IDenrollment);
+        enrollmentRepository.RestaurarVacantes(IDenrollment);
+
+    }
+
 }

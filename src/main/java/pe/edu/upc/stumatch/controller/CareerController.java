@@ -3,9 +3,12 @@ package pe.edu.upc.stumatch.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -54,8 +57,12 @@ public class CareerController {
 	}
 	
 	@PostMapping("savenew")
-	public String saveCareer(Model model, @ModelAttribute("career") Career career) {
+	public String saveCareer(@Valid @ModelAttribute("career") Career career, BindingResult result, Model model) {
 		try {
+			if(result.hasErrors())
+			{
+				return "careers/new-career";
+			}
 			Career careerSaved = careerService.create(career);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

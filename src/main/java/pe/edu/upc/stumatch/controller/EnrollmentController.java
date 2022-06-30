@@ -191,6 +191,7 @@ public class EnrollmentController {
 		try {
 
 			if (enrollmentService.existById(id)) {
+				enrollmentService.Restaurar(id);
 				enrollmentService.deleteById(id);
 				redirectAttrs.addFlashAttribute("mensaje", "Se elimino correctamente").addFlashAttribute("clase",
 						"success");

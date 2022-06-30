@@ -2,7 +2,10 @@ package pe.edu.upc.stumatch.model.repository;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -27,5 +30,14 @@ public interface EnrollmentRepository extends JpaRepository<Enrollment, Integer>
 	@Query(value="select s.credit_amount from students s where s.student_id=:estudiante", nativeQuery = true )
 	public int BuscarCreditos(@Param("estudiante") String estudiante);
 	
+	@Transactional
+    @Modifying
+    @Query(value="update students set credit_amount = students.credit_amount + cou.number_credits from students stu inner join enrollments en ON stu.student_id=en.student_id inner join sections sec ON en.section_id = sec.section_id inner join courses cou ON sec.course_id=cou.course_id where en.enrollment_id=:matricula AND students.student_id=en.student_id", nativeQuery = true )
+    public void Restaurarcreditos(@Param("matricula") Integer matricula);
+	
+	@Transactional
+    @Modifying
+    @Query(value="update sections set vacancies = sec.vacancies+1 from sections sec inner join enrollments en ON sec.section_id=en.section_id where en.enrollment_id=:matricula AND sections.section_id =en.section_id AND sections.vacancies<10 AND sections.vacancies>0 ", nativeQuery = true )
+    public void RestaurarVacantes(@Param("matricula") Integer matricula);
 }
 

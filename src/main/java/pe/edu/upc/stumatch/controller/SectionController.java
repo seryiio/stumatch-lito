@@ -3,9 +3,12 @@ package pe.edu.upc.stumatch.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -64,8 +67,16 @@ public class SectionController {
 	}
 
 	@PostMapping("savenew")
-	public String saveSection(Model model, @ModelAttribute("section") Section section) {
+	public String saveSection(@Valid @ModelAttribute("section") Section section, BindingResult result, Model model) {
 		try {
+			if(result.hasErrors())
+			{
+				List<Course> courses = courseService.getAll();
+				model.addAttribute("courses", courses);
+				List<Teacher> teachers = teacherService.getAll();
+				model.addAttribute("teachers", teachers);
+				return "sections/new-section";
+			}
 			Section sectionSaved = sectionService.create(section);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

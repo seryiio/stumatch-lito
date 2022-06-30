@@ -19,5 +19,5 @@ public interface EnrollmentService extends CrudService<Enrollment, Integer>{
 
 	public void UpdateCredit(Student student,Enrollment enrollment);
 	
-	
+	public void Restaurar(Integer IDenrollment);
 }

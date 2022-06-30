@@ -14,43 +14,58 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "students", 
 	indexes = {@Index(columnList = "last_name, first_name", name = "students_index_last_name_first_name")})
 public class Student {
 	@Id
+	@NotEmpty(message = "Debe ingresar un ID")
+	@Size(min = 1,max = 12, message = "El valor debe estar entre 1 y 12 caracteres")
 	@Column(name = "student_id", length = 12, nullable = false)
 	private String id;
-	
+
+	@Size(min = 1,max = 50, message = "El valor debe estar entre 1 y 50 caracteres")
 	@Column(name = "last_name", length = 50, nullable = false)
 	private String lastName;
-	
+
+	@Size(min = 1,max = 50, message = "El valor debe estar entre 1 y 50 caracteres")
 	@Column(name = "first_name", length = 50, nullable = false)	
 	private String firstName;
-	
+
+	@Min(value = 1, message = "El valor debe ser mayor a 1")
+	@Max(value = 90, message = "El valor debe menor a 90")
 	@Column(name = "age")
 	private Integer age;
-	
-	@Column(name = "dni",columnDefinition = ("NUMERIC(8)"), nullable = false)	
+
+	@Min(value = 10000000, message = "El valor debe tener 8 digitos")
+	@Max(value = 99999999, message = "El valor debe tener 8 digitos")
+	@Column(name = "dni")	
 	private Integer dni;
 	
-	@Max(10)
-	@Min(1)
+	@Min(value = 1, message = "El valor debe ser mayor a 1")
+	@Max(value = 10, message = "El valor debe menor a 10")
 	@Column(name = "cycle")
 	private Integer cycle;
 	
-	@Column(name = "phone_number",columnDefinition = ("NUMERIC(9)"), nullable = false)
+	@Min(value = 100000000, message = "El valor debe tener 9 digitos")
+	@Max(value = 999999999, message = "El valor debe tener 9 digitos")
+	@Column(name = "phone_number")
 	private Integer phoneNumber;
-	
+
+	@Size(min = 1,max = 70, message = "El valor debe estar entre 1 y 70 caracteres")
 	@Column(name = "email_university", length = 70)	
 	private String emailUniversity;
-	
+
+	@Size(min = 1,max = 70, message = "El valor debe estar entre 1 y 70 caracteres")
 	@Column(name = "email_personal", length = 70)	
 	private String emailPersonal;
 
-	@Min(0)
-	@Column(name = "credit_amount", columnDefinition = ("NUMERIC(2)"))	
+	@Min(value = 1, message = "El valor debe ser mayor a 1")
+	@Max(value = 28, message = "El valor debe menor a 28")
+	@Column(name = "credit_amount")	
 	private Integer creditAmount;
 	
 	@OneToMany(mappedBy = "student")

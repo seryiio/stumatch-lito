@@ -25,63 +25,46 @@
 			<form th:action="@{/teachers/savenew}" th:object="${teacher}" method="post" class="row g-3 needs-validation" novalidate>
 				  <div class="col-md-2">
 				    <label for="id" class="form-label">Codigo</label>
-				    <input type="text" class="form-control" th:field="*{id}" required>
-				    <div class="valid-feedback">
-				      Looks good!
-				    </div>
+				    <input type="text" class="form-control" th:field="*{id}" th:errorclass="'form-control alert-danger'">
+				    <small class="form-text text-danger" th:if="${#fields.hasErrors('id')}" th:errors="*{id}"></small>
 				  </div>
 				  <div class="col-md-4">
 				    <label for="lastName" class="form-label">Apellidos</label>
-				    <input type="text" class="form-control" th:field="*{lastName}" required>
-				    <div class="valid-feedback">
-				      Looks good!
-				    </div>
+				    <input type="text" class="form-control" th:field="*{lastName}" th:errorclass="'form-control alert-danger'">
+				    <small class="form-text text-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></small>
 				  </div>
 				   <div class="col-md-4">
 				    <label for="firstName" class="form-label">Nombres</label>
-				    <input type="text" class="form-control" th:field="*{firstName}" required>
-				    <div class="valid-feedback">
-				      Looks good!
-				    </div>
+				    <input type="text" class="form-control" th:field="*{firstName}" th:errorclass="'form-control alert-danger'">
+				    <small class="form-text text-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></small>
 				  </div>
 				    <div class="col-md-4">
 				    <label for="age" class="form-label">Edad</label>
-				    <input type="text" class="form-control" th:field="*{age}" required>
-				    <div class="valid-feedback">
-				      Looks good!
-				    </div>
+				    <input type="text" class="form-control" th:field="*{age}" th:errorclass="'form-control alert-danger'">
+				    <small class="form-text text-danger" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></small>
 				  </div>
 				    <div class="col-md-4">
 				    <label for="dni" class="form-label">DNI</label>
-				    <input type="text" class="form-control" th:field="*{dni}" required>
-				    <div class="valid-feedback">
-				      Looks good!
-				    </div>
+				    <input type="text" class="form-control" th:field="*{dni}" th:errorclass="'form-control alert-danger'">
+				    <small class="form-text text-danger" th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}"></small>
 				  </div>
 				    <div class="col-md-4">
 				    <label for="phoneNumber" class="form-label">Numero</label>
-				    <input type="text" class="form-control" th:field="*{phoneNumber}" required>
-				    <div class="valid-feedback">
-				      Looks good!
-				    </div>
+				    <input type="text" class="form-control" th:field="*{phoneNumber}" th:errorclass="'form-control alert-danger'">
+				    <small class="form-text text-danger" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></small>
 				  </div>
 				    <div class="col-md-4">
 				    <label for="emailUniversity" class="form-label">Correo Universitario</label>
-				    <input type="text" class="form-control" th:field="*{emailUniversity}" required>
-				    <div class="valid-feedback">
-				      Looks good!
-				    </div>
+				    <input type="text" class="form-control" th:field="*{emailUniversity}" th:errorclass="'form-control alert-danger'">
+				    <small class="form-text text-danger" th:if="${#fields.hasErrors('emailUniversity')}" th:errors="*{emailUniversity}"></small>
 				  </div>
 				  
 				  <div class="col-md-3">
 				    <label for="career" class="form-label">Carrera</label>
-				    <select class="form-select" th:field="*{career}" required>
+				    <select class="form-select" th:field="*{career}" >
 				      <option value="">Elige una Carrera</option>
 				      <option th:each="career : ${careers}" th:value="${career.id}" th:text="${career.name}"></option>
 				    </select>
-				    <div class="invalid-feedback">
-				      Please select a valid state.
-				    </div>
 				  </div>
 					  
 				  <div class="col-12" style="text-align: center;">

@@ -3,9 +3,12 @@ package pe.edu.upc.stumatch.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -71,8 +74,14 @@ public class StudentController {
 	}
 	
 	@PostMapping("savenew")
-	public String saveStudent(Model model, @ModelAttribute("student") Student student) {
+	public String saveStudent(@Valid @ModelAttribute("student") Student student, BindingResult result,Model model) {
 		try {
+			if(result.hasErrors())
+			{
+				List<Career> careers = careerService.getAll();
+				model.addAttribute("careers", careers);
+				return "students/new-student";
+			}
 			Student studentSaved = studentService.create(student);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
